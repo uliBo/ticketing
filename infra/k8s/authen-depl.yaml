@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authen-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authen
+  template:
+    metadata:
+      labels:
+        app: authen
+    spec:
+      containers:
+        - name: authen
+          image: mub4711/authen
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://authen-mongo-srv:27017/authen'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authen-srv
+spec:
+  selector:
+    app: authen
+  ports:
+    - name: authen
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
