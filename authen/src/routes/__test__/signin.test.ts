@@ -15,6 +15,8 @@ it('fails when an incorrect password is supplied', async () => {
   await request(app)
     .post('/api/users/signup')
     .send({
+      firstName: 'Helmut',
+      lastName: 'Schmitz',
       email: 'test@test.com',
       password: 'password'
     })
@@ -33,6 +35,8 @@ it('responds with a cookie when given valid credentials', async () => {
   await request(app)
     .post('/api/users/signup')
     .send({
+      firstName: 'Helmut',
+      lastName: 'Schmitz',
       email: 'test@test.com',
       password: 'password'
     })
