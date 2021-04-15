@@ -1,7 +1,9 @@
 name: tests-authen
 
 on:
-  pull_request
+  pull_request:
+    paths:
+      'authen/**'
   
 jobs:
   build:
